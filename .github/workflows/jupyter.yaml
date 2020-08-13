@@ -1,0 +1,16 @@
+name: Publish Docker
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish Jupyter
+      uses: docker/build-push-action@v1
+      with:
+        name: oentonfoot/jupyter
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: latest
+        dockerfile: jupyter/Dockerfile
+        
