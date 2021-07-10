@@ -16,6 +16,6 @@ CMD jupyter lab  \
 	--allow-root  \
 	--port=8888  \
 	--NotebookApp.token='' \
-	--NotebookApp.base_url=NB_PREFIX \
+	--NotebookApp.base_url=${NB_PREFIX} \
 	--NotebookApp.password='' \
 	--NotebookApp.allow_origin='*'
