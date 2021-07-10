@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "jupyter/Dockerfile"
+  workflow_dispatch:
 jobs:
   buildx:
     runs-on: ubuntu-latest
