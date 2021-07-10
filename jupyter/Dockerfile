@@ -1,4 +1,4 @@
-FROM  jupyter/datascience-notebook
+FROM  jupyter/datascience-notebook:julia-1.6.1
 
 ENV JUPYTER_ENABLE_LAB=yes
 ENV NB_PREFIX /
