@@ -1,16 +1,24 @@
-name: Publish Docker
+name: Build Jupyter
 on: [push]
 jobs:
-  build:
+  buildx:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Publish Jupyter
-      uses: docker/build-push-action@v1
-      with:
-        repository: oentonfoot/jupyter
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: latest
-        dockerfile: jupyter/Dockerfile
-        
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
+      - name: Login to docker hub
+        run: echo "${{ secrets.docker_password }}" | docker login -u "${{ secrets.docker_username }}" --password-stdin
+      - name: Run Buildx
+        run: |
+          docker buildx build \
+            --push \
+            --platform linux/amd64,linux/arm64 \
+            --tag ${{secrets.docker_username}}/jupyter:latest \
+            /jupyter/Dockerfile
