@@ -1,4 +1,4 @@
-name: Build Jupyter
+name: jupyter
 on:
   push:
     paths:

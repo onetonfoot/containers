@@ -1,4 +1,4 @@
-name: buildx
+name: hello-world
 on: [push]
 jobs:
   buildx:
@@ -16,9 +16,10 @@ jobs:
       - name: Login to docker hub
         run: echo "${{ secrets.docker_password }}" | docker login -u "${{ secrets.docker_username }}" --password-stdin
       - name: Run Buildx
+        working-directory: ./hello-world
         run: |
           docker buildx build \
             --push \
             --platform linux/amd64,linux/arm64 \
             --tag ${{secrets.docker_username}}/hello-world:latest \
-            /hello-world/Dockerfile
+            .
